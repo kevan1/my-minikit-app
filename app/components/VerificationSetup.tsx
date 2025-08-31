@@ -50,10 +50,10 @@ export function VerificationSetup({ onBack, onContinue }: VerificationSetupProps
 
       {/* Title and Description */}
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-white mb-3">
+        <h1 className="text-xl sm:text-2xl font-bold text-white mb-3">
           How should we verify your passing?
         </h1>
-        <p className="text-gray-400 leading-relaxed">
+        <p className="text-gray-400 leading-relaxed text-sm sm:text-base px-2">
           Choose how your passing should be verified before assets are distributed
         </p>
       </div>
@@ -155,7 +155,7 @@ export function VerificationSetup({ onBack, onContinue }: VerificationSetupProps
         </button>
         <button
           onClick={onContinue}
-          className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200"
+          className="px-8 py-3 bg-white hover:bg-gray-100 text-black font-semibold rounded-lg transition-colors duration-200 border border-gray-300"
         >
           Continue
         </button>

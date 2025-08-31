@@ -19,11 +19,16 @@ import {
   WalletDropdownDisconnect,
 } from "@coinbase/onchainkit/wallet";
 import { useEffect, useMemo, useState, useCallback } from "react";
+import Image from "next/image";
 import { useAccount } from "wagmi";
 import { Button } from "./components/DemoComponents";
 import { Icon } from "./components/DemoComponents";
 import { RoleSelection } from "./components/RoleSelection";
 import { VerificationSetup } from "./components/VerificationSetup";
+import { AssignGuardians } from "./components/AssignGuardians";
+import { VaultSetup } from "./components/VaultSetup";
+import { GuardianInterface } from "./components/GuardianInterface";
+import { FinalReview } from "./components/FinalReview";
 import MatrixRain from "@/components/matrix-rain";
 
 export default function App() {
@@ -32,6 +37,10 @@ export default function App() {
   const { isConnected } = useAccount();
   const [showMainApp, setShowMainApp] = useState(false);
   const [selectedRole, setSelectedRole] = useState<'creator' | 'guardian' | null>(null);
+  const [currentStep, setCurrentStep] = useState<'verification' | 'guardians' | 'vault' | 'review'>('verification');
+  const [guardians, setGuardians] = useState<Array<{ id: string; address: string }>>([]);
+  const [vaultAssets, setVaultAssets] = useState<Array<{ symbol: string; name: string; balance: string; usdValue: string }>>([]);
+  const [verificationMethods] = useState<string[]>(['guardian']);
 
   const addFrame = useAddFrame();
   const openUrl = useOpenUrl();
@@ -130,17 +139,67 @@ export default function App() {
   // Handle continue from verification setup
   const handleContinueFromVerification = () => {
     console.log('Continuing from verification setup...');
-    // Add logic for next step
+    setCurrentStep('guardians');
+  };
+
+  // Guardian management functions
+  const handleAddGuardian = (address: string) => {
+    const newGuardian = {
+      id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+      address
+    };
+    setGuardians(prev => [...prev, newGuardian]);
+  };
+
+  const handleRemoveGuardian = (id: string) => {
+    setGuardians(prev => prev.filter(guardian => guardian.id !== id));
+  };
+
+  const handleContinueFromGuardians = () => {
+    console.log('Continuing from guardians setup...');
+    // Skip beneficiaries, go directly to vault
+    setCurrentStep('vault');
+  };
+
+  const handleBackToVerification = () => {
+    setCurrentStep('verification');
+  };
+
+  const handleBackToGuardians = () => {
+    setCurrentStep('guardians');
+  };
+
+  const handleContinueFromVault = (assets: Array<{ symbol: string; name: string; balance: string; usdValue: string }>) => {
+    console.log('Vault setup complete, proceeding to review...');
+    setVaultAssets(assets);
+    setCurrentStep('review');
+  };
+
+  const handleBackToVault = () => {
+    setCurrentStep('vault');
+  };
+
+  // Final review navigation handlers
+  const handleEditGuardians = () => {
+    setCurrentStep('guardians');
+  };
+
+  const handleEditVault = () => {
+    setCurrentStep('vault');
+  };
+
+  const handleEditVerification = () => {
+    setCurrentStep('verification');
   };
 
   // Show main app after 1.5-second delay
   return (
-    <div className="min-h-screen bg-gray-950 flex flex-col">
-      <header className="flex justify-between items-center p-4 border-b border-gray-800">
-        <div className="flex items-center space-x-2">
+    <div className="min-h-screen bg-black flex flex-col">
+      <header className="flex items-center justify-between p-4 border-b border-gray-800">
+        <div className="flex items-center space-x-2 min-w-0">
           <Wallet className="z-10">
-            <ConnectWallet>
-              <Name className="text-inherit text-white" />
+            <ConnectWallet className="bg-white hover:bg-gray-100 text-black font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
+              <Name className="text-inherit text-black" />
             </ConnectWallet>
             <WalletDropdown>
               <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
@@ -153,15 +212,64 @@ export default function App() {
             </WalletDropdown>
           </Wallet>
         </div>
-        <div>{saveFrameButton}</div>
+        
+        {/* Logo positioned in the center */}
+        <div className="flex justify-center">
+          <Image
+            src="/ascii-art-text.png" 
+            alt="NEORYPTO Logo"
+            width={120}
+            height={32}
+            className="h-8 w-auto opacity-60 hover:opacity-80 transition-opacity duration-200"
+          />
+        </div>
+        
+        {/* Save Frame Button positioned to the right */}
+        <div className="flex justify-end">
+          {saveFrameButton}
+        </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center p-4">
+      <main className="flex-1 flex items-center justify-center p-2 sm:p-4">
         {selectedRole === 'creator' ? (
-          <VerificationSetup 
-            onBack={handleBackToRoleSelection}
-            onContinue={handleContinueFromVerification}
-          />
+          <>
+            {currentStep === 'verification' && (
+              <VerificationSetup 
+                onBack={handleBackToRoleSelection}
+                onContinue={handleContinueFromVerification}
+              />
+            )}
+            {currentStep === 'guardians' && (
+              <AssignGuardians
+                guardians={guardians}
+                onAddGuardian={handleAddGuardian}
+                onRemoveGuardian={handleRemoveGuardian}
+                onContinue={handleContinueFromGuardians}
+                onBack={handleBackToVerification}
+              />
+            )}
+            {currentStep === 'vault' && (
+              <VaultSetup
+                onContinue={handleContinueFromVault}
+                onBack={handleBackToGuardians}
+              />
+            )}
+            {currentStep === 'review' && (
+              <FinalReview
+                guardians={guardians}
+                vaultAssets={vaultAssets}
+                verificationMethods={verificationMethods}
+                onBack={handleBackToVault}
+                onEditGuardians={handleEditGuardians}
+                onEditVault={handleEditVault}
+                onEditVerification={handleEditVerification}
+              />
+            )}
+          </>
+        ) : selectedRole === 'guardian' ? (
+          <div className="w-full">
+            <GuardianInterface onBack={handleBackToRoleSelection} />
+          </div>
         ) : (
           <RoleSelection onRoleSelect={handleRoleSelect} />
         )}

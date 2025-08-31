@@ -9,19 +9,19 @@ type RoleOptionProps = {
   iconColor: string;
 };
 
-function RoleOption({ title, description, asciiIcon, onClick, iconColor }: RoleOptionProps) {
+function RoleOption({ title, description, asciiIcon, onClick }: RoleOptionProps) {
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer p-6 rounded-xl border border-gray-800 bg-gray-900/50 hover:bg-gray-800/50 transition-all duration-200 hover:border-gray-700"
+      className="group cursor-pointer p-6 rounded-xl border border-gray-300 bg-white hover:bg-gray-100 transition-all duration-200 hover:border-gray-400"
     >
       <div className="flex items-start space-x-4">
-        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-2xl font-mono ${iconColor}`}>
+        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-2xl font-mono bg-gray-200`}>
           {asciiIcon}
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-          <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
+          <h3 className="text-lg font-semibold text-black mb-2">{title}</h3>
+          <p className="text-gray-700 text-sm leading-relaxed">{description}</p>
         </div>
       </div>
     </div>
@@ -36,10 +36,10 @@ export function RoleSelection({ onRoleSelect }: RoleSelectionProps) {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-white mb-2">
+        <h1 className="text-xl sm:text-2xl font-bold text-white mb-2">
           How are you using Base Will?
         </h1>
-        <p className="text-gray-400">
+        <p className="text-gray-400 text-sm sm:text-base px-2">
           Choose your role to get started
         </p>
       </div>

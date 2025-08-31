@@ -43,13 +43,13 @@ export function Button({
 
   const variantClasses = {
     primary:
-      "bg-[var(--app-accent)] hover:bg-[var(--app-accent-hover)] text-[var(--app-background)]",
+      "bg-white hover:bg-gray-100 text-black border border-gray-300",
     secondary:
-      "bg-[var(--app-gray)] hover:bg-[var(--app-gray-dark)] text-[var(--app-foreground)]",
+      "bg-white hover:bg-gray-100 text-black border border-gray-300",
     outline:
-      "border border-[var(--app-accent)] hover:bg-[var(--app-accent-light)] text-[var(--app-accent)]",
+      "border border-white hover:bg-white hover:text-black text-white",
     ghost:
-      "hover:bg-[var(--app-accent-light)] text-[var(--app-foreground-muted)]",
+      "hover:bg-white hover:text-black text-white",
   };
 
   const sizeClasses = {

@@ -1,0 +1,18 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHg4NDFmMTMwOGQ4MGEzOTUyYWM2YTQ5NTYxNkFhYWI5QkUwZWJEMENGIn0",
+    "payload": "eyJkb21haW4iOiJsb2NhbGhvc3Q6MzAwMCJ9",
+    "signature": "MHhmZjVhNDQzM2YxNjJjYWQ3ZjI0ZGEzNjFjZTVkZGUwYzI4ZTZmNTNlM2M3NTNmZmE5ODY0ODZmNGEyZGNlNmZkMjA"
+  },
+  "frame": {
+    "version": "1",
+    "name": "NEORYPTO - Digital Inheritance Protocol",
+    "iconUrl": "https://your-domain.com/icon.png",
+    "splashImageUrl": "https://your-domain.com/splash.png",
+    "splashBackgroundColor": "#000000",
+    "homeUrl": "https://your-domain.com"
+  },
+  "baseBuilder": {
+    "allowedAddresses": ["0x841f1308d80a3952ac6a495616Aaab9BE0ebD0CF"]
+  }
+}

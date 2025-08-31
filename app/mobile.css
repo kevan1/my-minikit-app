@@ -1,0 +1,102 @@
+/* Mobile optimizations for the Base Will app */
+
+/* Prevent horizontal scroll on small screens */
+body {
+  overflow-x: hidden;
+}
+
+/* ASCII art mobile handling */
+@media (max-width: 640px) {
+  pre {
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: pre;
+  }
+  
+  /* Reduce padding on mobile cards */
+  .card-mobile {
+    padding: 1rem !important;
+  }
+  
+  /* Button adjustments for mobile */
+  .button-mobile {
+    width: 100%;
+    padding: 0.875rem 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* Progress indicators mobile */
+  .progress-mobile {
+    transform: scale(0.8);
+  }
+  
+  /* Header wallet dropdown mobile */
+  .wallet-mobile {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 768px) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input {
+    min-height: 48px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Guardian cards mobile optimization */
+  .guardian-card {
+    padding: 0.75rem !important;
+  }
+  
+  .guardian-address {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 390px) {
+  .container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  h1 {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
+  
+  .ascii-art {
+    font-size: 0.5rem !important;
+    line-height: 1.1 !important;
+  }
+}
+
+/* Safe area insets for iOS devices */
+@supports (padding: env(safe-area-inset-top)) {
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Improve readability on small screens */
+@media (max-width: 640px) {
+  .text-responsive {
+    line-height: 1.6 !important;
+  }
+  
+  .mono-responsive {
+    font-size: 0.75rem !important;
+    word-break: break-all;
+  }
+}
