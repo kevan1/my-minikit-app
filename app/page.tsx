@@ -24,8 +24,6 @@ import { Button } from "./components/DemoComponents";
 import { Icon } from "./components/DemoComponents";
 import { RoleSelection } from "./components/RoleSelection";
 import { VerificationSetup } from "./components/VerificationSetup";
-import { MenuBar } from "@/components/menu-bar";
-import { ThemeToggle } from "@/components/theme-toggle";
 import MatrixRain from "@/components/matrix-rain";
 
 export default function App() {

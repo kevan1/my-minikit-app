@@ -9,7 +9,6 @@ type VerificationSetupProps = {
 
 export function VerificationSetup({ onBack, onContinue }: VerificationSetupProps) {
   const [selectedOptions, setSelectedOptions] = useState<string[]>(['guardian']);
-  const [threshold, setThreshold] = useState('2');
 
   const handleOptionToggle = (option: string) => {
     if (option === 'guardian') {
@@ -139,7 +138,7 @@ export function VerificationSetup({ onBack, onContinue }: VerificationSetupProps
                 Activity heartbeat
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Regular check-ins to prove you're still active
+                Regular check-ins to prove you&apos;re still active
               </p>
             </div>
           </div>
